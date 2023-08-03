@@ -6,6 +6,7 @@
 void moveto(int x, int y)
 {
     POINT p;
+	POINT Check_P;
     GetCursorPos(&p);
     int diffx, diffy;
     diffx = x > p.x ? 1 : -1;
@@ -15,6 +16,12 @@ void moveto(int x, int y)
     {
         SetCursorPos((int)(p.x + (diffx * i)), (int)(p.y + (diffx * i)));
         Sleep(10);
+		GetCursorPos(&Check_P);
+		if((abs(Check_P.x - p.x) + abs(Check_P.y - p.y)) > 10 )
+		{
+			//user bread
+			i=101;
+		}
     }
     SetCursorPos(x,y);
 }
@@ -61,7 +68,7 @@ int main()
             //std::cout << "p.x=" << p.x << "p.y=" << p.y << "\n";
         }
 
-        if (count >= 20)
+        if (count >= 30)
         {
             count = 0;
             mouse_event(MOUSEEVENTF_RIGHTDOWN, p.x, p.y,0,0);
